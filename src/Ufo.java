@@ -67,7 +67,7 @@ public class Ufo{
             fluegel2.verschiebe(0,0,-2);
         }
     }
-    
+
     
     
     

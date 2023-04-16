@@ -1,99 +1,103 @@
 import GLOOP.*;
-import java.lang.*; 
-public class Ufospiel{
-    private GLKamera kamera;
+import java.lang.*;
+public class Ufospiel {
+    private GLSchwenkkamera kamera;
     private GLLicht licht;
     private GLTastatur tastatur;
     private GLHimmel himmel;
-
+    private GLTafel tafel;
     private Astriod[] astriod;
-    
-    
+
+    private Laserstrahl laserstrahl;
     private Ufo meinUfo;
-    
-    public Ufospiel(){
-        kamera = new GLKamera(800,600);         
-        licht  = new GLLicht();
+
+    public Ufospiel() {
+        kamera = new GLSchwenkkamera(800, 600);
+        licht = new GLLicht();
         tastatur = new GLTastatur();
         himmel = new GLHimmel("src/Img/Sterne.jpg");
-        kamera.setzeScheitelrichtung(0,90,0);
-        kamera.setzePosition(0,-500,0.1);
-        meinUfo =new Ufo();
-        
-        astriod=new Astriod[50];
-        
-       
-        
-        
-        
-        
-        
-       
-        
-        
-        for (int i=0; i<astriod.length ; i++ ){ 
-          astriod[i]=new Astriod (meinUfo);
-          
-          astriod[i].verschiebe(Math.random()*30,0,0);
-          
-          if(i%4==3){
-              astriod[i].textur1();
-              
-              
+        kamera.setzeScheitelrichtung(0, 90, 0);
+        kamera.setzePosition(0, -500, 0.1);
+        meinUfo = new Ufo();
+        tafel = new GLTafel(220,0,230,100,100);
+        tafel.setzeAutodrehung(true);
+        astriod = new Astriod[50];
+        laserstrahl = new Laserstrahl(meinUfo);
+        tafel.setzeText("Deine Freien Schüsse: " + laserstrahl.gibSchussAnzahl(),20);
+        tafel.setzeTextur("src/Img/invisible.png");
+        tafel.setzeTextfarbe(1,0,0);
+        for (int i = 0; i < astriod.length; i++) {
+            astriod[i] = new Astriod(meinUfo);
+
+            astriod[i].verschiebe(Math.random() * 30, 0, 0);
+
+            if (i % 4 == 3) {
+                astriod[i].textur1();
+
+
             }
-          if(i%4==0){
-              astriod[i].textur2();
-              
-              
+            if (i % 4 == 0) {
+                astriod[i].textur2();
+
+
             }
-          if(i%4==2){
-              astriod[i].textur3();
-              
-              
+            if (i % 4 == 2) {
+                astriod[i].textur3();
+
+
             }
-                   if(i%4==1){
-              astriod[i].textur4();
-              
-              
+            if (i % 4 == 1) {
+                astriod[i].textur4();
+
+
             }
         }
-       run();
-       ;
+        run();
+
     }
-    public void run (){
-        
-        while(!tastatur.enter()){ 
-            
-            if(tastatur.links()){
+
+    public void run() {
+
+        while (!tastatur.esc()) {
+
+            if (tastatur.links()) {
                 meinUfo.bewegeLinks();
 
             }
-            if(tastatur.rechts ()){
+            if (tastatur.rechts()) {
                 meinUfo.bewegeRechts();
-            
+
             }
-            if(tastatur.unten ()){
+            if (tastatur.unten()) {
                 meinUfo.bewegeUnten();
 
             }
-            if(tastatur.oben ()){
+            if (tastatur.oben()) {
                 meinUfo.bewegeOben();
-
             }
-            
-            
-            
-            
-            for(int i=0;i<50;i++){
+
+            if(tastatur.enter()){
+                laserstrahl.Munition();
+                tafel.setzeText("Deine Freien Schüsse: " + laserstrahl.gibSchussAnzahl(),20);
+            }
+
+
+
+
+
+
+            for (int i = 0; i < 50; i++) {
                 astriod[i].fallen(1);
             }
-            
+
             Sys.warte();
-        
+
         }
         int u = 1;
-       
-            
-        
+
+
+
+
+
     }
 }
