@@ -28,7 +28,7 @@ public class Laserstrahl {
             } else {
                 Laser.setzePosition(DasUfo.gibX(), DasUfo.gibY() + 500, DasUfo.gibZ());
                 Laser.setzeSichtbarkeit(true);
-                Sys.warte(200);
+                Sys.warte(100);
                 Laser.setzePosition(3000,3000,-300);
                 schusse = schusse-1;
 
@@ -41,6 +41,7 @@ public class Laserstrahl {
         return schusse;
         }
     }
+
 
 
 

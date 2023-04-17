@@ -5,7 +5,7 @@ public class Ufospiel {
     private GLLicht licht;
     private GLTastatur tastatur;
     private GLHimmel himmel;
-    private GLTafel tafel;
+    private GLTafel tafel,tafel2;
     private Astriod[] astriod;
 
     private Laserstrahl laserstrahl;
@@ -21,11 +21,19 @@ public class Ufospiel {
         meinUfo = new Ufo();
         tafel = new GLTafel(220,0,230,100,100);
         tafel.setzeAutodrehung(true);
+        tafel2 = new GLTafel(-220,0,230,100,100);
+        tafel2.setzeAutodrehung(true);
         astriod = new Astriod[50];
         laserstrahl = new Laserstrahl(meinUfo);
-        tafel.setzeText("Deine Freien Schüsse: " + laserstrahl.gibSchussAnzahl(),20);
+        //tafel schüsse
+        tafel.setzeText("Verfügbare Munition : " + laserstrahl.gibSchussAnzahl(),20);
         tafel.setzeTextur("src/Img/invisible.png");
         tafel.setzeTextfarbe(1,0,0);
+        //tafel leben
+        tafel2.setzeText("Verfügbare Leben : " + meinUfo.giblebenanzahl(),20);
+        tafel2.setzeTextur("src/Img/invisible.png");
+        tafel2.setzeTextfarbe(1,0,0);
+
         for (int i = 0; i < astriod.length; i++) {
             astriod[i] = new Astriod(meinUfo);
 
@@ -59,6 +67,7 @@ public class Ufospiel {
     public void run() {
 
         while (!tastatur.esc()) {
+
 
             if (tastatur.links()) {
                 meinUfo.bewegeLinks();
